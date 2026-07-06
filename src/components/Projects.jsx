@@ -29,6 +29,14 @@ const Projects = () => {
       github: "https://github.com/aniruthramidi/neon-breakout-game",
       live: "https://neonbrakeout1.netlify.app",
       image: "/projects/neon_breakout.jpg"
+    },
+    {
+      title: "Neon Web Calculator",
+      description: "A modern, sleek web-based calculator application featuring a dark glassmorphism aesthetic and glowing neon buttons. Built for precise calculations with an elegant user interface.",
+      techStack: ["React.js", "CSS3", "JavaScript"],
+      github: "https://github.com/aniruthramidi/calculator",
+      live: "#",
+      image: "/projects/calculator.jpg"
     }
   ];
 
