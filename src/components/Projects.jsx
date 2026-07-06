@@ -31,7 +31,7 @@ const Projects = () => {
       image: "/projects/neon_breakout.jpg"
     },
     {
-      title: "Neon Web Calculator",
+      title: "Calculator",
       description: "A modern, sleek web-based calculator application featuring a dark glassmorphism aesthetic and glowing neon buttons. Built for precise calculations with an elegant user interface.",
       techStack: ["React.js", "CSS3", "JavaScript"],
       github: "https://github.com/aniruthramidi/calculator",
