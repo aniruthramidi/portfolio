@@ -32,7 +32,7 @@ const Projects = () => {
     },
     {
       title: "Calculator",
-      description: "A modern, sleek web-based calculator application featuring a dark glassmorphism aesthetic and glowing neon buttons. Built for precise calculations with an elegant user interface.",
+      description: "Designed and developed a highly polished calculator interface showcasing modern UI/UX principles. Implemented a custom glassmorphism design system with dynamic CSS variables, glowing neon aesthetics, and responsive layouts to create an immersive, pixel-perfect user experience.",
       techStack: ["React.js", "CSS3", "JavaScript"],
       github: "https://github.com/aniruthramidi/calculator",
       live: "https://clc12.netlify.app",
