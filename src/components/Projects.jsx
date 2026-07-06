@@ -55,13 +55,19 @@ const Projects = () => {
               transition={{ delay: 0.2, duration: 0.5 }}
             >
               <div className="project-image-container">
-                <img src={project.image} alt={project.title} className="project-image" />
-                <div className="project-image-overlay"></div>
+                <a href={project.live !== "#" ? project.live : project.github} target="_blank" rel="noopener noreferrer">
+                  <img src={project.image} alt={project.title} className="project-image" />
+                  <div className="project-image-overlay"></div>
+                </a>
               </div>
               
               <div className="project-content">
                 <p className="project-overline gradient-text">Featured Project</p>
-                <h3 className="project-title">{project.title}</h3>
+                <h3 className="project-title">
+                  <a href={project.live !== "#" ? project.live : project.github} target="_blank" rel="noopener noreferrer">
+                    {project.title}
+                  </a>
+                </h3>
                 
                 <div className="project-description">
                   <p>{project.description}</p>

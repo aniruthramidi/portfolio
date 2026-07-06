@@ -68,6 +68,16 @@
   color: var(--text-primary);
 }
 
+.project-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.project-title a:hover {
+  color: var(--accent-color);
+}
+
 .project-description {
   background-color: var(--bg-secondary);
   padding: 25px;
