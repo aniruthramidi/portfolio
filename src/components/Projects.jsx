@@ -27,7 +27,7 @@ const Projects = () => {
       description: "A retro-style neon arcade breakout game. Developed with responsive physics, collision detection, and glowing visual aesthetics for an engaging web-based gaming experience.",
       techStack: ["JavaScript", "HTML5 Canvas", "CSS3", "Game Physics"],
       github: "https://github.com/aniruthramidi/neon-breakout-game",
-      live: "https://aniruthreddy.netlify.app",
+      live: "https://neonbrakeout1.netlify.app",
       image: "/projects/neon_breakout.jpg"
     }
   ];
