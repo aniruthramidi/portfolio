@@ -34,17 +34,7 @@ const About = () => {
             </p>
           </div>
           
-          <div className="about-image-container">
-            <div className="about-image-wrapper">
-              <div className="about-image-overlay"></div>
-              {/* Using a placeholder for now. Replace with actual profile picture */}
-              <img 
-                src="https://via.placeholder.com/400x400/171717/3b82f6?text=AR" 
-                alt="Aniruth Reddy" 
-                className="about-image"
-              />
-            </div>
-          </div>
+
         </div>
       </motion.div>
     </section>
