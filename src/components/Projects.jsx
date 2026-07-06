@@ -35,7 +35,7 @@ const Projects = () => {
       description: "A modern, sleek web-based calculator application featuring a dark glassmorphism aesthetic and glowing neon buttons. Built for precise calculations with an elegant user interface.",
       techStack: ["React.js", "CSS3", "JavaScript"],
       github: "https://github.com/aniruthramidi/calculator",
-      live: "#",
+      live: "https://clc12.netlify.app",
       image: "/projects/calculator.jpg"
     }
   ];
