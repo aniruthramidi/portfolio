@@ -17,12 +17,18 @@ const Contact = () => {
     setStatus('Sending...');
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const encode = (data) => {
+        return Object.keys(data)
+          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+          .join("&");
+      };
+
+      const response = await fetch('/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(formData),
+        body: encode({ "form-name": "contact", ...formData }),
       });
 
       if (response.ok) {
@@ -70,7 +76,8 @@ const Contact = () => {
             </a>
           </div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form" name="contact" method="POST" data-netlify="true" onSubmit={handleSubmit}>
+            <input type="hidden" name="form-name" value="contact" />
             <div className="form-group">
               <input
                 type="text"
