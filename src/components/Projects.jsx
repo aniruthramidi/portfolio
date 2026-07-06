@@ -7,13 +7,28 @@ import './Projects.css';
 const Projects = () => {
   const projects = [
     {
-      title: "Music Streaming Site",
-      description: "A full-stack music streaming web application. Engineered a real-time audio analysis feature using the Web Audio API, implementing complex audio processing pipelines for live visualization. Designed RESTful APIs to handle audio streaming requests and user data.",
+      title: "Decibel",
+      description: "A sleek, full-stack music streaming web application. Engineered a real-time audio analysis feature using the Web Audio API, implementing complex audio processing pipelines for live visualization.",
       techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "Web Audio API"],
-      github: "https://github.com/aniruthramidi",
+      github: "https://github.com/aniruthramidi/decibel",
+      live: "https://decibel-zeta.vercel.app",
+      image: "/projects/decibel.jpg"
+    },
+    {
+      title: "Trading Bot",
+      description: "A high-tech Binance Futures Trading Bot with a command-line interface. Built for automated crypto trading with robust market data analysis and risk management features.",
+      techStack: ["Python", "Binance API", "Pandas", "NumPy"],
+      github: "https://github.com/aniruthramidi/trading-bot",
       live: "#",
-      // Using placeholder since we don't have the real project image
-      image: "https://via.placeholder.com/600x400/1a1a2e/4361ee?text=Music+Streaming+App"
+      image: "/projects/trading_bot.jpg"
+    },
+    {
+      title: "Neon Breakout Game",
+      description: "A retro-style neon arcade breakout game. Developed with responsive physics, collision detection, and glowing visual aesthetics for an engaging web-based gaming experience.",
+      techStack: ["JavaScript", "HTML5 Canvas", "CSS3", "Game Physics"],
+      github: "https://github.com/aniruthramidi/neon-breakout-game",
+      live: "#",
+      image: "/projects/neon_breakout.jpg"
     }
   ];
 
