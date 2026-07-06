@@ -14,11 +14,11 @@ const Hero = () => {
         >
           <h2 className="hero-greeting">Hi, my name is</h2>
           <h1 className="hero-name">Aniruth Reddy.</h1>
-          <h1 className="hero-title gradient-text">I build things for the web.</h1>
+          <h1 className="hero-title gradient-text">I craft engaging user interfaces.</h1>
           
           <p className="hero-description">
-            I'm a Full-Stack Web Development student with a passion for building 
-            scalable, production-quality web applications using React, Node.js, and MongoDB.
+            I'm a Frontend Developer and UI Engineer with a passion for building 
+            beautiful, responsive, and pixel-perfect digital experiences.
           </p>
           
           <div className="hero-buttons">

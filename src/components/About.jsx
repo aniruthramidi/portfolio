@@ -25,8 +25,8 @@ const About = () => {
             <p>
               Fast-forward to today, and I've had the privilege of studying Computer Science at 
               Veltech Dr. RR & Dr. SR University. I'm currently focused on building accessible, 
-              inclusive products and digital experiences. My main focus these days is building 
-              scalable full-stack applications with React and Node.js.
+              inclusive products and digital experiences. My main focus these days is engineering 
+              engaging, pixel-perfect user interfaces and scalable frontend applications.
             </p>
             <p>
               I also have experience managing large-scale digital communities and coordinating 
