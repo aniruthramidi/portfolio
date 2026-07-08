@@ -1,0 +1,96 @@
+/* ── Preloader Overlay ── */
+.preloader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+}
+
+/* curtain panels */
+.preloader-panel-top,
+.preloader-panel-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #020203; /* Deep cinema black background */
+  z-index: -1;
+  will-change: transform;
+}
+
+.preloader-panel-top {
+  top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.preloader-panel-bottom {
+  bottom: 0;
+}
+
+/* center details */
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 10;
+  text-align: center;
+  will-change: opacity, transform;
+}
+
+.preloader-logo {
+  font-family: var(--fh);
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  background: var(--grad-t);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.preloader-logo .logo-dot {
+  -webkit-text-fill-color: var(--accent);
+}
+
+.preloader-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 180px;
+}
+
+.preloader-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: var(--surface);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.preloader-progress-fill {
+  height: 100%;
+  background: var(--grad);
+  border-radius: 99px;
+  width: 0%;
+}
+
+.preloader-percentage {
+  font-family: var(--fb);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.preloader-subtext {
+  font-family: var(--fb);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-m);
+}
