@@ -4,115 +4,262 @@ import { ExternalLink } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import './Projects.css';
 
+const projects = [
+  {
+    title: 'Decibel',
+    description:
+      'A sleek full-stack music streaming web app. Engineered a real-time audio analysis feature using the Web Audio API — complex audio processing pipelines for live waveform visualization.',
+    tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Web Audio API'],
+    github: 'https://github.com/aniruthramidi/decibel',
+    live: 'https://decibel-zeta.vercel.app',
+    accent: '#5E6AD2',
+    gradient: 'linear-gradient(135deg, #0f0722 0%, #1a0f3d 50%, #0c1a45 100%)',
+    featured: true,
+    mockupType: 'dashboard',
+  },
+  {
+    title: 'Trading Bot',
+    description:
+      'High-tech Binance Futures Trading Bot with a CLI interface. Automated crypto trading with robust market data analysis, risk management, and real-time Pandas signal processing.',
+    tech: ['Python', 'Binance API', 'Pandas', 'NumPy'],
+    github: 'https://github.com/aniruthramidi/trading-bot',
+    live: null,
+    accent: '#22c55e',
+    gradient: 'linear-gradient(135deg, #021209 0%, #0d2e1a 50%, #0d2620 100%)',
+    featured: false,
+    mockupType: 'phone',
+  },
+  {
+    title: 'Neon Breakout',
+    description:
+      'Retro-style neon arcade breakout game. Responsive physics, collision detection, and glowing visual aesthetics — all in vanilla JS and HTML5 Canvas.',
+    tech: ['JavaScript', 'HTML5 Canvas', 'CSS3'],
+    github: 'https://github.com/aniruthramidi/neon-breakout-game',
+    live: 'https://neonbrakeout1.netlify.app',
+    accent: '#f59e0b',
+    gradient: 'linear-gradient(135deg, #1a0a00 0%, #3a1e00 50%, #2a1000 100%)',
+    featured: false,
+    mockupType: 'grid',
+  },
+  {
+    title: 'Calculator',
+    description:
+      'A clean, responsive calculator application with smooth animations and keyboard support. Built as a study in CSS grid mastery and state management in vanilla JS.',
+    tech: ['JavaScript', 'HTML5', 'CSS3'],
+    github: 'https://github.com/aniruthramidi/calculator',
+    live: null,
+    accent: '#38bdf8',
+    gradient: 'linear-gradient(135deg, #040e2c 0%, #0d1f52 50%, #0c2564 100%)',
+    featured: false,
+    mockupType: 'sidebar',
+  },
+];
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+};
+
 const Projects = () => {
-  const projects = [
-    {
-      title: "Decibel",
-      description: "A sleek, full-stack music streaming web application. Engineered a real-time audio analysis feature using the Web Audio API, implementing complex audio processing pipelines for live visualization.",
-      techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "Web Audio API"],
-      github: "https://github.com/aniruthramidi/decibel",
-      live: "https://decibel-zeta.vercel.app",
-      image: "/projects/decibel.jpg"
-    },
-    {
-      title: "Trading Bot",
-      description: "A high-tech Binance Futures Trading Bot with a command-line interface. Built for automated crypto trading with robust market data analysis and risk management features.",
-      techStack: ["Python", "Binance API", "Pandas", "NumPy"],
-      github: "https://github.com/aniruthramidi/trading-bot",
-      live: "#",
-      image: "/projects/trading_bot.jpg"
-    },
-    {
-      title: "Neon Breakout Game",
-      description: "A retro-style neon arcade breakout game. Developed with responsive physics, collision detection, and glowing visual aesthetics for an engaging web-based gaming experience.",
-      techStack: ["JavaScript", "HTML5 Canvas", "CSS3", "Game Physics"],
-      github: "https://github.com/aniruthramidi/neon-breakout-game",
-      live: "https://neonbrakeout1.netlify.app",
-      image: "/projects/neon_breakout.jpg"
-    },
-    {
-      title: "Calculator",
-      description: "Designed and developed a highly polished calculator interface showcasing modern UI/UX principles. Implemented a custom glassmorphism design system with dynamic CSS variables, glowing neon aesthetics, and responsive layouts to create an immersive, pixel-perfect user experience.",
-      techStack: ["React.js", "CSS3", "JavaScript"],
-      github: "https://github.com/aniruthramidi/calculator",
-      live: "https://clc12.netlify.app",
-      image: "/projects/calculator.jpg"
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--x', `${x}%`);
+    card.style.setProperty('--y', `${y}%`);
+  };
+
+  const handleMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.removeProperty('--x');
+    card.style.removeProperty('--y');
+  };
+
+  const renderMockup = (type) => {
+    switch (type) {
+      case 'dashboard':
+        return (
+          <div className="mock-window">
+            <div className="mock-titlebar">
+              <span className="mock-dot" />
+              <span className="mock-dot" />
+              <span className="mock-dot" />
+            </div>
+            <div className="mock-body">
+              <div className="mock-line" style={{ width: '80%' }} />
+              <div className="mock-line" style={{ width: '60%' }} />
+              <div className="mock-grid">
+                <div className="mock-cell" />
+                <div className="mock-cell" />
+              </div>
+            </div>
+          </div>
+        );
+      case 'phone':
+        return (
+          <div className="mock-phone">
+            <div className="mock-phone-notch" />
+            <div className="mock-body">
+              <div className="mock-line" style={{ width: '50%', margin: '0 auto 12px', height: '6px', opacity: 0.4 }} />
+              <div className="mock-line" style={{ width: '80%' }} />
+              <div className="mock-line" style={{ width: '65%' }} />
+              <div className="mock-line" style={{ width: '55%' }} />
+            </div>
+          </div>
+        );
+      case 'grid':
+        return (
+          <div className="mock-window">
+            <div className="mock-titlebar">
+              <span className="mock-dot" />
+              <span className="mock-dot" />
+              <span className="mock-dot" />
+            </div>
+            <div className="mock-body">
+              <div className="mock-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', marginTop: 0 }}>
+                <div className="mock-cell" style={{ height: '24px' }} />
+                <div className="mock-cell" style={{ height: '24px' }} />
+                <div className="mock-cell" style={{ height: '24px' }} />
+                <div className="mock-cell" style={{ height: '24px' }} />
+                <div className="mock-cell" style={{ height: '24px' }} />
+                <div className="mock-cell" style={{ height: '24px' }} />
+              </div>
+            </div>
+          </div>
+        );
+      case 'sidebar':
+        return (
+          <div className="mock-window mock-wide-layout">
+            <div className="mock-titlebar">
+              <span className="mock-dot" />
+              <span className="mock-dot" />
+              <span className="mock-dot" />
+            </div>
+            <div className="mock-sidebar-layout">
+              <div className="mock-sidebar">
+                <div className="mock-line" style={{ width: '80%' }} />
+                <div className="mock-line" style={{ width: '50%' }} />
+                <div className="mock-line" style={{ width: '60%' }} />
+              </div>
+              <div className="mock-main">
+                <div className="mock-line" style={{ width: '90%' }} />
+                <div className="mock-line" style={{ width: '75%' }} />
+                <div className="mock-grid" style={{ gap: '6px' }}>
+                  <div className="mock-cell" style={{ height: '20px' }} />
+                  <div className="mock-cell" style={{ height: '20px' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
     }
-  ];
+  };
 
   return (
-    <section id="projects" className="section container">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="section-title">
-          <span className="gradient-text">04.</span> Some Things I've Built
-        </h2>
-        
-        <div className="projects-list">
-          {projects.map((project, index) => (
-            <motion.div 
-              className="project-card glass-panel"
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+    <section id="projects" className="section">
+      <div className="container">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="s-header"
+        >
+          <span className="section-tag">Selected Work</span>
+          <h2 className="section-title">
+            Projects That <span className="gradient-text">Move</span> People
+          </h2>
+        </motion.div>
+
+        <motion.div
+          className="projects-grid"
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {projects.map((p) => (
+            <motion.article
+              key={p.title}
+              className={`proj-card glass-panel${p.featured ? ' proj-featured' : ''}`}
+              variants={fadeUp}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              style={{ '--p-accent': p.accent }}
             >
-              <div className="project-image-container">
-                <a href={project.live !== "#" ? project.live : project.github} target="_blank" rel="noopener noreferrer">
-                  <img src={project.image} alt={project.title} className="project-image" />
-                  <div className="project-image-overlay"></div>
-                </a>
-              </div>
-              
-              <div className="project-content">
-                <p className="project-overline gradient-text">Featured Project</p>
-                <h3 className="project-title">
-                  <a href={project.live !== "#" ? project.live : project.github} target="_blank" rel="noopener noreferrer">
-                    {project.title}
-                  </a>
-                </h3>
-                
-                <div className="project-description">
-                  <p>{project.description}</p>
+              {/* Visual mockup */}
+              <div className="proj-visual" style={{ background: p.gradient }}>
+                <div className="mock-wrap">
+                  {renderMockup(p.mockupType)}
                 </div>
-                
-                <ul className="project-tech-list">
-                  {project.techStack.map((tech, i) => (
-                    <li key={i}>{tech}</li>
+                <div className="proj-glow" />
+              </div>
+
+              <div className="proj-body">
+                {p.featured && (
+                  <span className="section-tag" style={{ marginBottom: '0.75rem', alignSelf: 'flex-start' }}>
+                    Featured Project
+                  </span>
+                )}
+                <div className="proj-tags">
+                  {p.tech.map((t) => (
+                    <span key={t}>{t}</span>
                   ))}
-                </ul>
-                
-                <div className="project-links">
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Link">
-                    <FaGithub size={20} />
+                </div>
+                <h3 className="proj-title">{p.title}</h3>
+                <p className="proj-desc">{p.description}</p>
+                <div className="proj-links">
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="proj-link"
+                    aria-label="GitHub"
+                  >
+                    <FaGithub size={15} /> Code
                   </a>
-                  {project.live !== "#" && (
-                    <a href={project.live} target="_blank" rel="noopener noreferrer" aria-label="External Link">
-                      <ExternalLink size={20} />
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="proj-link proj-link-live"
+                      aria-label="Live demo"
+                    >
+                      <ExternalLink size={14} /> Live
                     </a>
                   )}
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
-        </div>
-        
-        <div className="projects-more">
-          <a 
-            href="https://github.com/aniruthramidi" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="btn btn-secondary"
+        </motion.div>
+
+        <motion.div
+          className="projects-more"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          style={{ marginTop: '3.5rem' }}
+        >
+          <a
+            href="https://github.com/aniruthramidi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline"
           >
-            View more on GitHub
+            <FaGithub size={16} /> See all on GitHub
           </a>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 };

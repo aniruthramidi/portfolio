@@ -1,0 +1,51 @@
+/* ── Custom Cursor ── */
+.cursor {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width var(--t-fast) var(--ease), height var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+  will-change: transform;
+}
+
+.cursor-follower {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(94, 106, 210, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s var(--ease);
+  will-change: transform;
+}
+
+/* Hovered States */
+.cursor.hovered {
+  width: 14px;
+  height: 14px;
+  background: var(--accent-l);
+}
+
+.cursor-follower.hovered {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(94, 106, 210, 0.35);
+}
+
+/* Hide cursor on tablet/mobile screens */
+@media (max-width: 768px) {
+  .cursor,
+  .cursor-follower {
+    display: none;
+  }
+}
