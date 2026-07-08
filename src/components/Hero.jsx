@@ -104,7 +104,7 @@ const Hero = () => {
               View my work <ArrowRight size={16} />
             </motion.button>
             <motion.a
-              href="https://github.com/aniruthramidi"
+              href={import.meta.env.VITE_GITHUB_URL || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-ghost"

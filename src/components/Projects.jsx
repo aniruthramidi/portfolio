@@ -251,7 +251,7 @@ const Projects = () => {
           style={{ marginTop: '3.5rem' }}
         >
           <a
-            href="https://github.com/aniruthramidi"
+            href={import.meta.env.VITE_GITHUB_URL || '#'}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"

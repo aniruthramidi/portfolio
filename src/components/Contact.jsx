@@ -7,22 +7,22 @@ import './Contact.css';
 const socials = [
   {
     label: 'GitHub',
-    href: 'https://github.com/aniruthramidi',
+    href: import.meta.env.VITE_GITHUB_URL || '#',
     icon: <FaGithub size={20} />,
   },
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/aniruth-reddy',
+    href: import.meta.env.VITE_LINKEDIN_URL || '#',
     icon: <FaLinkedinIn size={20} />,
   },
   {
     label: 'Twitter',
-    href: 'https://twitter.com',
+    href: import.meta.env.VITE_TWITTER_URL || '#',
     icon: <FaTwitter size={20} />,
   },
   {
     label: 'Dribbble',
-    href: 'https://dribbble.com',
+    href: import.meta.env.VITE_DRIBBBLE_URL || '#',
     icon: <FaDribbble size={20} />,
   },
 ];

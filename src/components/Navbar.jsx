@@ -76,7 +76,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         </button>
 
         <a
-          href="https://github.com/aniruthramidi"
+          href={import.meta.env.VITE_GITHUB_URL || '#'}
           target="_blank"
           rel="noopener noreferrer"
           className="nav-gh"
@@ -88,7 +88,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         </a>
 
         <a
-          href="https://www.linkedin.com/in/aniruth-reddy"
+          href={import.meta.env.VITE_LINKEDIN_URL || '#'}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-resume"
@@ -125,7 +125,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a
-            href="https://github.com/aniruthramidi"
+            href={import.meta.env.VITE_GITHUB_URL || '#'}
             target="_blank"
             rel="noopener noreferrer"
           >
