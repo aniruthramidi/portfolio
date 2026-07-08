@@ -24,11 +24,11 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform var(--t-slow) var(--ease), border-color var(--t) var(--ease), box-shadow var(--t-slow) var(--ease);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, border-color var(--t) var(--ease), box-shadow var(--t-slow) var(--ease);
 }
 
 .proj-card:hover {
-  transform: translateY(-8px);
   border-color: var(--bdr-a);
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--bdr-a);
 }
@@ -38,6 +38,8 @@
   height: 240px;
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.3s var(--ease);
 }
 
 .mock-wrap {
@@ -47,6 +49,8 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  transform-style: preserve-3d;
+  transition: transform 0.3s var(--ease);
 }
 
 /* Window Mockup */
@@ -175,6 +179,16 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  transform-style: preserve-3d;
+  transition: transform 0.3s var(--ease);
+}
+
+.proj-card:hover .mock-wrap {
+  transform: translateZ(35px);
+}
+
+.proj-card:hover .proj-body {
+  transform: translateZ(15px);
 }
 
 .proj-tags {

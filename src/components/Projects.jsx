@@ -68,16 +68,24 @@ const Projects = () => {
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    card.style.setProperty('--x', `${x}%`);
-    card.style.setProperty('--y', `${y}%`);
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    const rotateX = -(y - yc) / 12; // Max ~12 degrees tilt
+    const rotateY = (x - xc) / 12;
+
+    card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+    card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
   };
 
   const handleMouseLeave = (e) => {
     const card = e.currentTarget;
     card.style.removeProperty('--x');
     card.style.removeProperty('--y');
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
   };
 
   const renderMockup = (type) => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { motion, animate, useInView } from 'framer-motion';
 import { Layout, Server, Database, Code, Wrench, Volume2 } from 'lucide-react';
 import './Skills.css';
 
@@ -47,6 +47,29 @@ const skillsData = [
     w: '80%',
   },
 ];
+
+const Counter = ({ to }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+
+  useEffect(() => {
+    if (!inView) return;
+    const node = ref.current;
+    if (!node) return;
+
+    const controls = animate(0, parseInt(to), {
+      duration: 1.4,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate(value) {
+        node.textContent = `${Math.floor(value)}%`;
+      },
+    });
+
+    return () => controls.stop();
+  }, [inView, to]);
+
+  return <span ref={ref} className="skill-pct">0%</span>;
+};
 
 const stagger = {
   hidden: {},
@@ -102,7 +125,7 @@ const Skills = () => {
                   style={{ background: s.clr }}
                 />
               </div>
-              <span className="skill-pct">{s.w}</span>
+              <Counter to={s.w} />
             </motion.div>
           ))}
         </motion.div>

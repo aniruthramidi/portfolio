@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaDribbble } from 'react-icons/fa';
+import Magnetic from './Magnetic';
 import './Contact.css';
 
 const socials = [
@@ -77,16 +78,17 @@ const Contact = () => {
             </p>
             <div className="contact-socials">
               {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="soc"
-                  aria-label={s.label}
-                >
-                  {s.icon}
-                </a>
+                <Magnetic key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="soc"
+                    aria-label={s.label}
+                  >
+                    {s.icon}
+                  </a>
+                </Magnetic>
               ))}
             </div>
           </div>

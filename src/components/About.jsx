@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Zap, Code2 } from 'lucide-react';
+import Magnetic from './Magnetic';
 import './About.css';
 
 const About = () => {
@@ -131,16 +132,18 @@ const About = () => {
               ))}
             </div>
 
-            <a
-              href="#contact"
-              className="btn-primary"
-              onClick={(e) => {
-                e.preventDefault();
-                handleScroll('#contact');
-              }}
-            >
-              Let's Work Together
-            </a>
+            <Magnetic>
+              <a
+                href="#contact"
+                className="btn-primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleScroll('#contact');
+                }}
+              >
+                Let's Work Together
+              </a>
+            </Magnetic>
           </motion.div>
         </div>
       </div>

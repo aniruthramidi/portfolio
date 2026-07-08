@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
+import Magnetic from './Magnetic';
 import './Hero.css';
 
 const Hero = () => {
@@ -94,26 +95,30 @@ const Hero = () => {
           </p>
 
           <div className="hero-ctas">
-            <motion.button
-              className="btn-primary"
-              onClick={() => handleScroll('#projects')}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              View my work <ArrowRight size={16} />
-            </motion.button>
-            <motion.a
-              href={import.meta.env.VITE_GITHUB_URL || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              <FaGithub size={16} /> GitHub
-            </motion.a>
+            <Magnetic>
+              <motion.button
+                className="btn-primary"
+                onClick={() => handleScroll('#projects')}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                View my work <ArrowRight size={16} />
+              </motion.button>
+            </Magnetic>
+            <Magnetic>
+              <motion.a
+                href={import.meta.env.VITE_GITHUB_URL || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                <FaGithub size={16} /> GitHub
+              </motion.a>
+            </Magnetic>
           </div>
 
           {/* Quick stats */}
