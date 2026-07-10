@@ -69,7 +69,7 @@ const Projects = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/projects')
+    fetch('https://server-seven-delta-28.vercel.app/api/projects')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch');
         return res.json();

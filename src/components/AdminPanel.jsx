@@ -28,7 +28,7 @@ export const AdminPanel = () => {
   const [newMockupType, setNewMockupType] = useState('grid');
   const [addingProject, setAddingProject] = useState(false);
 
-  const BASE_URL = 'http://localhost:5000/api';
+  const BASE_URL = 'https://server-seven-delta-28.vercel.app/api';
 
   useEffect(() => {
     if (token) {

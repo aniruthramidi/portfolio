@@ -38,7 +38,7 @@ const Contact = () => {
     e.preventDefault();
     setStatus('sending');
     try {
-      const response = await fetch('http://localhost:5002/api/contact', {
+      const response = await fetch('https://server-seven-delta-28.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
