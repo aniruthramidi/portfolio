@@ -17,33 +17,33 @@ ul { list-style: none; }
 /* ── Dark Theme Tokens ── */
 :root {
   --bg:          #000000;
-  --bg-s:        #121212;
-  --bg-e:        #181818;
-  --surface:     #181818;
-  --surface-h:   #282828;
-  --glass:       #121212;
+  --bg-s:        #0c0c0c;
+  --bg-e:        #121212;
+  --surface:     #121212;
+  --surface-h:   #222222;
+  --glass:       #0c0c0c;
 
-  --fg:          #EDEDEF;
-  --fg-m:        #A7A7A7;
-  --fg-d:        rgba(237 237 239 / 0.3);
+  --fg:          #ffffff;
+  --fg-m:        #a3a3a3;
+  --fg-d:        rgba(255 255 255 / 0.25);
 
-  --accent:      #1DB954;
-  --accent-l:    #1ED760;
-  --accent-glow: rgba(29, 185, 84, 0.22);
-  --accent-bg:   rgba(29, 185, 84, 0.1);
+  --accent:      #ffffff;
+  --accent-l:    #fafafa;
+  --accent-glow: rgba(255, 255, 255, 0.15);
+  --accent-bg:   rgba(255, 255, 255, 0.08);
 
-  --bdr:         #282828;
-  --bdr-h:       #3E3E3E;
-  --bdr-a:       rgba(29, 185, 84, 0.3);
+  --bdr:         #222222;
+  --bdr-h:       #3a3a3a;
+  --bdr-a:       rgba(255, 255, 255, 0.25);
 
-  --grad:        linear-gradient(135deg, #1DB954, #1ED760, #7eff9a);
-  --grad-t:      linear-gradient(135deg, #1ED760 0%, #7eff9a 55%, #c2ffd0 100%);
-  --grad-sub:    linear-gradient(180deg, rgba(29,185,84,0.15) 0%, transparent 100%);
+  --grad:        linear-gradient(135deg, #ffffff, #a3a3a3, #525252);
+  --grad-t:      linear-gradient(135deg, #ffffff 0%, #a3a3a3 55%, #737373 100%);
+  --grad-sub:    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
 
-  --sh-s:   0 4px 16px rgba(0 0 0 / 0.4);
-  --sh-m:   0 12px 40px rgba(0 0 0 / 0.55);
-  --sh-l:   0 24px 64px rgba(0 0 0 / 0.65);
-  --sh-a:   0 8px 32px rgba(29, 185, 84, 0.28);
+  --sh-s:   0 4px 16px rgba(0 0 0 / 0.5);
+  --sh-m:   0 12px 40px rgba(0 0 0 / 0.65);
+  --sh-l:   0 24px 64px rgba(0 0 0 / 0.75);
+  --sh-a:   0 8px 32px rgba(255, 255, 255, 0.15);
 
   --r:    16px;
   --r-s:  10px;
@@ -71,20 +71,20 @@ ul { list-style: none; }
   --surface-h: #e9ecef;
   --glass:     rgba(255 255 255 / 0.9);
 
-  --fg:   #121212;
-  --fg-m: #535353;
-  --fg-d: rgba(18 18 18 / 0.3);
+  --fg:   #000000;
+  --fg-m: #525252;
+  --fg-d: rgba(0 0 0 / 0.25);
 
-  --accent:      #1DB954;
-  --accent-l:    #1ED760;
-  --accent-glow: rgba(29, 185, 84, 0.15);
-  --accent-bg:   rgba(29, 185, 84, 0.08);
+  --accent:      #000000;
+  --accent-l:    #171717;
+  --accent-glow: rgba(0, 0, 0, 0.12);
+  --accent-bg:   rgba(0, 0, 0, 0.06);
 
   --bdr:   #e9ecef;
   --bdr-h: #dee2e6;
-  --bdr-a: rgba(29, 185, 84, 0.25);
+  --bdr-a: rgba(0, 0, 0, 0.25);
 
-  --grad-t: linear-gradient(135deg, #1DB954 0%, #1ED760 50%, #a1ffb2 100%);
+  --grad-t: linear-gradient(135deg, #000000 0%, #525252 50%, #a3a3a3 100%);
   --bg-nav: rgba(248, 249, 250, 0.8);
   --bg-mobile: rgba(248, 249, 250, 0.97);
 
