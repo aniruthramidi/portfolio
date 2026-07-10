@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
@@ -65,6 +65,26 @@ const fadeUp = {
 };
 
 const Projects = () => {
+  const [projectList, setProjectList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/projects')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch');
+        return res.json();
+      })
+      .then((data) => {
+        setProjectList(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching projects:', err);
+        setProjectList(projects);
+        setLoading(false);
+      });
+  }, []);
+
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -193,7 +213,7 @@ const Projects = () => {
           whileInView="show"
           viewport={{ once: true, margin: '-60px' }}
         >
-          {projects.map((p) => (
+          {projectList.map((p) => (
             <motion.article
               key={p.title}
               className={`proj-card glass-panel${p.featured ? ' proj-featured' : ''}`}

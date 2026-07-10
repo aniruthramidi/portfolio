@@ -1,0 +1,563 @@
+/* ── Admin Login Styling ── */
+.admin-login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  background: rgba(10, 10, 10, 0.7);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h2 {
+  font-family: var(--fh);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.login-field input {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.login-field input:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.login-error-alert {
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.login-submit-btn {
+  padding: 14px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-submit-btn:hover {
+  background: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+.login-submit-btn:disabled {
+  background: #737373;
+  color: #a3a3a3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-back-btn {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.login-back-btn a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.login-back-btn a:hover {
+  color: #fff;
+}
+
+
+/* ── Dashboard Layout ── */
+.admin-dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background: #080808;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.admin-sidebar-logo h2 {
+  font-family: var(--fh);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 40px;
+}
+
+.admin-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.menu-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: left;
+}
+
+.menu-item-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.menu-item-btn.active {
+  color: #000;
+  background: #fff;
+}
+
+.admin-sidebar-footer {
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-logout-btn:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+
+/* ── Content Area ── */
+.admin-content-pane {
+  flex: 1;
+  padding: 40px clamp(20px, 5vw, 60px);
+  overflow-y: auto;
+}
+
+.admin-pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-meta h1 {
+  font-family: var(--fh);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.header-meta p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.back-link-tag {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.back-link-tag:hover {
+  background: #fff;
+  color: #000;
+}
+
+.action-alert-banner {
+  padding: 14px 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+
+.alert-success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #a7f3d0;
+}
+
+.alert-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+
+/* ── Grid Content Panels ── */
+.admin-grid-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 1024px) {
+  .admin-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pane-card {
+  padding: 30px;
+  background: rgba(10, 10, 10, 0.6);
+}
+
+.pane-card-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.pane-card-header h3 {
+  font-family: var(--fh);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.loading-data-text {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+
+/* ── Tables & Badges ── */
+.admin-table-container {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.admin-table th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-table tr:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.strong-td {
+  font-weight: 600;
+  color: #fff;
+}
+
+.td-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.td-badge {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e5e5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.feat-indicator {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.feat-indicator.is-feat {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-weight: 600;
+}
+
+.admin-action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.delete-btn:hover {
+  color: #fff;
+  background: #ef4444;
+}
+
+.empty-td {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+
+/* ── Form Inputs ── */
+.add-project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form-group-field input[type="text"],
+.form-group-field input[type="url"],
+.form-group-field textarea,
+.form-group-field select {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.form-group-field input:focus,
+.form-group-field textarea:focus,
+.form-group-field select:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.checkbox-group input {
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-group span {
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.submit-form-btn {
+  padding: 12px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.submit-form-btn:hover {
+  background: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+
+/* ── Messages Stream ── */
+.messages-stream-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item-card {
+  padding: 20px 0;
+}
+
+.message-item-card:first-child {
+  padding-top: 0;
+}
+
+.message-item-card:last-child {
+  border-bottom: none;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.message-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.sender-meta h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.sender-email {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.message-date {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.msg-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fca5a5;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.msg-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fff;
+}
+
+.message-item-body {
+  color: #e5e5e5;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.empty-stream-text {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-secondary);
+}

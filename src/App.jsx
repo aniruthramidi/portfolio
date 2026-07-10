@@ -10,6 +10,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Cursor from './components/Cursor';
 import Preloader from './components/Preloader';
+import AdminPanel from './components/AdminPanel';
 import './index.css';
 
 function App() {
@@ -17,6 +18,16 @@ function App() {
     return localStorage.getItem('portfolio-theme') || 'dark';
   });
   const [loading, setLoading] = useState(true);
+  const [isAdminView, setIsAdminView] = useState(() => window.location.hash === '#admin');
+
+  // Monitor url hash changes
+  useEffect(() => {
+    const handleHash = () => {
+      setIsAdminView(window.location.hash === '#admin');
+    };
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Set initial theme
   useEffect(() => {
@@ -39,20 +50,26 @@ function App() {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {loading && <Preloader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
-      <Cursor />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <main>
-        <Hero />
-        <Marquee />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact />
-      </main>
+      {isAdminView ? (
+        <AdminPanel />
+      ) : (
+        <>
+          <AnimatePresence mode="wait">
+            {loading && <Preloader onComplete={() => setLoading(false)} />}
+          </AnimatePresence>
+          <Cursor />
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
+          <main>
+            <Hero />
+            <Marquee />
+            <About />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Contact />
+          </main>
+        </>
+      )}
     </>
   );
 }

@@ -34,16 +34,35 @@ const Contact = () => {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    setTimeout(() => {
-      setStatus('sent');
-      setForm({ name: '', email: '', project: '', message: '' });
-      setTimeout(() => {
+    try {
+      const response = await fetch('http://localhost:5002/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.project ? `[Project: ${form.project}] ${form.message}` : form.message,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('sent');
+        setForm({ name: '', email: '', project: '', message: '' });
+        setTimeout(() => {
+          setStatus('idle');
+        }, 3500);
+      } else {
         setStatus('idle');
-      }, 3500);
-    }, 1600);
+        alert('Failed to send message.');
+      }
+    } catch (err) {
+      console.error('Error sending contact form:', err);
+      setStatus('idle');
+      alert('Failed to send message. Check if backend is running.');
+    }
   };
 
   return (
