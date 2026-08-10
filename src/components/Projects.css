@@ -1,3 +1,64 @@
+/* ── Projects Category Filter Bar ── */
+.proj-filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.proj-filter-btn {
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  color: var(--fg-m);
+  font-family: var(--fb);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--t-fast) var(--ease);
+}
+
+.proj-filter-btn:hover {
+  background: var(--surface-h);
+  color: var(--fg);
+  border-color: var(--bdr-h);
+}
+
+.proj-filter-btn.active {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent-l);
+  box-shadow: 0 0 16px rgba(29, 185, 84, 0.2);
+}
+
+.proj-expand-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: all var(--t-fast) var(--ease);
+  pointer-events: none;
+}
+
+.proj-card:hover .proj-expand-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ── Projects Grid ── */
 .projects-grid {
   display: grid;

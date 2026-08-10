@@ -1,18 +1,30 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Copy } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import Magnetic from './Magnetic';
+import ParticleCanvas from './ParticleCanvas';
+import { soundFx } from '../utils/audio';
 import './Hero.css';
 
-const Hero = () => {
+const Hero = ({ theme, showToast }) => {
   const heroRef = useRef(null);
   const orb1Ref = useRef(null);
   const orb2Ref = useRef(null);
   const orb3Ref = useRef(null);
 
   const handleScroll = (href) => {
+    soundFx.playClick();
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const copyEmail = () => {
+    soundFx.playSuccess();
+    const email = 'aniruth.ramidi@gmail.com';
+    navigator.clipboard.writeText(email);
+    if (showToast) {
+      showToast('Email copied to clipboard! (aniruth.ramidi@gmail.com)', 'success');
+    }
   };
 
   useEffect(() => {
@@ -52,6 +64,9 @@ const Hero = () => {
 
   return (
     <section id="hero" ref={heroRef} className="hero-section">
+      {/* Interactive Particle Canvas */}
+      <ParticleCanvas theme={theme} />
+
       {/* Ambient blobs */}
       <div className="hero-bg" aria-hidden="true">
         <div ref={orb1Ref} className="blob blob-1" />
@@ -67,9 +82,9 @@ const Hero = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Badge */}
-          <div className="hero-badge">
+          <div className="hero-badge" onClick={copyEmail} style={{ cursor: 'pointer' }}>
             <span className="badge-dot" />
-            Available for full-time roles
+            Available for full-time roles &nbsp;•&nbsp; <Copy size={12} style={{ display: 'inline', marginLeft: 4 }} /> Copy Email
           </div>
 
           <p className="hero-greeting">Hi, my name is</p>
@@ -88,6 +103,7 @@ const Hero = () => {
                 handleScroll('#experience');
               }}
               className="inline-link"
+              onMouseEnter={() => soundFx.playHover()}
             >
               3Skill
             </a>
@@ -102,19 +118,22 @@ const Hero = () => {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                onMouseEnter={() => soundFx.playHover()}
               >
                 View my work <ArrowRight size={16} />
               </motion.button>
             </Magnetic>
             <Magnetic>
               <motion.a
-                href={import.meta.env.VITE_GITHUB_URL || '#'}
+                href={import.meta.env.VITE_GITHUB_URL || 'https://github.com/aniruthramidi'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                onClick={() => soundFx.playClick()}
+                onMouseEnter={() => soundFx.playHover()}
               >
                 <FaGithub size={16} /> GitHub
               </motion.a>
@@ -134,15 +153,15 @@ const Hero = () => {
             </div>
             <div className="stat-sep" />
             <div className="stat">
-              <span className="stat-val">∞</span>
-              <span className="stat-label">Curiosity</span>
+              <span className="stat-val">100%</span>
+              <span className="stat-label">User centered</span>
             </div>
           </div>
         </motion.div>
       </div>
 
       {/* Scroll hint */}
-      <div className="hero-scroll">
+      <div className="hero-scroll" onClick={() => handleScroll('#about')} style={{ cursor: 'pointer' }}>
         <div className="scroll-track" />
         <span>scroll</span>
       </div>

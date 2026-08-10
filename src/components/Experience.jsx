@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { soundFx } from '../utils/audio';
 import './Experience.css';
 
 const experiences = [
@@ -41,9 +42,11 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="s-header"
         >
+          <span className="section-tag">Career Path</span>
           <h2 className="section-title">
-            <span className="gradient-text">03.</span> Experience
+            Work <span className="gradient-text">Experience</span>
           </h2>
         </motion.div>
 
@@ -60,7 +63,11 @@ const Experience = () => {
               <button
                 key={e.company}
                 className={`exp-tab${active === i ? ' active' : ''}`}
-                onClick={() => setActive(i)}
+                onClick={() => {
+                  soundFx.playClick();
+                  setActive(i);
+                }}
+                onMouseEnter={() => soundFx.playHover()}
               >
                 {e.company}
               </button>

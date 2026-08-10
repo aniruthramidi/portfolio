@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaDribbble } from 'react-icons/fa';
 import Magnetic from './Magnetic';
+import { soundFx } from '../utils/audio';
 import './Contact.css';
 
 const socials = [
   {
     label: 'GitHub',
-    href: import.meta.env.VITE_GITHUB_URL || '#',
+    href: import.meta.env.VITE_GITHUB_URL || 'https://github.com/aniruthramidi',
     icon: <FaGithub size={20} />,
   },
   {
@@ -28,7 +29,7 @@ const socials = [
   },
 ];
 
-const Contact = () => {
+const Contact = ({ showToast }) => {
   const [form, setForm] = useState({ name: '', email: '', project: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent
 
@@ -36,14 +37,20 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    soundFx.playClick();
     setStatus('sending');
+
     setTimeout(() => {
+      soundFx.playSuccess();
       setStatus('sent');
+      if (showToast) {
+        showToast('Thank you! Your message has been sent to Aniruth.', 'success');
+      }
       setForm({ name: '', email: '', project: '', message: '' });
       setTimeout(() => {
         setStatus('idle');
       }, 3500);
-    }, 1600);
+    }, 1400);
   };
 
   return (
@@ -85,6 +92,8 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     className="soc"
                     aria-label={s.label}
+                    onClick={() => soundFx.playClick()}
+                    onMouseEnter={() => soundFx.playHover()}
                   >
                     {s.icon}
                   </a>
@@ -157,6 +166,7 @@ const Contact = () => {
               whileHover={status === 'idle' ? { y: -2 } : {}}
               whileTap={status === 'idle' ? { scale: 0.97 } : {}}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              onMouseEnter={() => soundFx.playHover()}
             >
               {status === 'idle' && (
                 <>

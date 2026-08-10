@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, animate, useInView } from 'framer-motion';
 import { Layout, Server, Database, Code, Wrench, Volume2 } from 'lucide-react';
+import { soundFx } from '../utils/audio';
 import './Skills.css';
 
 const skillsData = [
@@ -110,6 +111,7 @@ const Skills = () => {
               key={s.title}
               className="skill-card glass-panel"
               variants={fadeUp}
+              onMouseEnter={() => soundFx.playHover()}
               style={{ '--ic': s.clr }}
             >
               <div className="skill-icon">{s.icon}</div>

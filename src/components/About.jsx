@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Zap, Code2 } from 'lucide-react';
 import Magnetic from './Magnetic';
+import { soundFx } from '../utils/audio';
 import './About.css';
 
 const About = () => {
@@ -24,6 +25,7 @@ const About = () => {
   ];
 
   const handleScroll = (href) => {
+    soundFx.playClick();
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -55,7 +57,7 @@ const About = () => {
                         r="22"
                         fill="rgba(255,255,255,0.15)"
                         stroke="rgba(255,255,255,0.3)"
-                        stroke-width="2"
+                        strokeWidth="2"
                       />
                       <ellipse
                         cx="50"
@@ -64,7 +66,7 @@ const About = () => {
                         ry="22"
                         fill="rgba(255,255,255,0.1)"
                         stroke="rgba(255,255,255,0.2)"
-                        stroke-width="2"
+                        strokeWidth="2"
                       />
                     </svg>
                   </div>
@@ -122,6 +124,7 @@ const About = () => {
                     delay: i * 0.1,
                     ease: [0.16, 1, 0.3, 1],
                   }}
+                  onMouseEnter={() => soundFx.playHover()}
                 >
                   <div className="val-icon">{v.icon}</div>
                   <div>
@@ -140,6 +143,7 @@ const About = () => {
                   e.preventDefault();
                   handleScroll('#contact');
                 }}
+                onMouseEnter={() => soundFx.playHover()}
               >
                 Let's Work Together
               </a>
