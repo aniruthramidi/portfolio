@@ -1,191 +1,184 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Volume2, VolumeX, FileText } from 'lucide-react';
-import Magnetic from './Magnetic';
-import { soundFx } from '../utils/audio';
-import './Navbar.css';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, X, Menu, Clock } from 'lucide-react';
+import { useMagnetic } from '../hooks/useMagnetic';
 
-const Navbar = ({ theme, toggleTheme, onOpenResume, showToast }) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('');
-  const [soundEnabled, setSoundEnabled] = useState(true);
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [timeStr, setTimeStr] = useState('');
+
+  const logoMag = useMagnetic({ strength: 0.2 });
+  const menuMag = useMagnetic({ strength: 0.35 });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Active section detection
-  useEffect(() => {
-    const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { threshold: 0.4 }
-    );
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const updateTime = () => {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      setTimeStr(now.toLocaleTimeString('en-US', options) + ' IST');
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { num: '01', label: 'OVERVIEW', href: '#top' },
+    { num: '02', label: 'ABOUT', href: '#about' },
+    { num: '03', label: 'WORK', href: '#work' },
+    { num: '04', label: 'CAPABILITIES', href: '#services' },
+    { num: '05', label: 'PHILOSOPHY', href: '#meaning' },
+    { num: '06', label: 'PRINCIPLES', href: '#ideas' },
+    { num: '07', label: 'CONTACT', href: '#contact' },
   ];
 
-  const handleNav = (e, href) => {
-    e.preventDefault();
-    soundFx.playClick();
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-    setMenuOpen(false);
-  };
-
-  const toggleSound = () => {
-    const isNowEnabled = soundFx.toggle();
-    setSoundEnabled(isNowEnabled);
-    if (showToast) {
-      showToast(isNowEnabled ? 'UI Sound Effects Enabled' : 'UI Sound Effects Muted', 'info');
+  const handleLinkClick = (href) => {
+    setIsOpen(false);
+    if (window.__lenis) {
+      window.__lenis.scrollTo(href === '#top' ? 0 : href, {
+        offset: 0,
+        duration: 1.2,
+      });
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
-      <a
-        href="#hero"
-        className="nav-logo"
-        onClick={(e) => handleNav(e, '#hero')}
-        onMouseEnter={() => soundFx.playHover()}
-      >
-        AR<span className="logo-dot">.</span>
-      </a>
+    <>
+      {/* Floating Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-5 md:px-12 md:py-7 pointer-events-none">
+        {/* Brand Wordmark Left with Butter-Smooth Magnetic Spring */}
+        <motion.a 
+          style={{ x: logoMag.x, y: logoMag.y }}
+          onMouseMove={logoMag.onMouseMove}
+          onMouseLeave={logoMag.onMouseLeave}
+          href="#top" 
+          onClick={(e) => { e.preventDefault(); handleLinkClick('#top'); }}
+          className="pointer-events-auto text-lg md:text-xl font-extrabold tracking-tighter text-ink mix-blend-difference hover:opacity-75 transition-opacity inline-block select-none font-display"
+        >
+          ANIRUTH®
+        </motion.a>
 
-      <ul className="nav-links">
-        {navLinks.map(({ name, href }) => (
-          <li key={name}>
-            <a
-              href={href}
-              className={active === href.slice(1) ? 'active' : ''}
-              onClick={(e) => handleNav(e, href)}
-              onMouseEnter={() => soundFx.playHover()}
+        {/* Menu Trigger Button with Butter-Smooth Magnetic Spring */}
+        <motion.button
+          style={{ x: menuMag.x, y: menuMag.y }}
+          onMouseMove={menuMag.onMouseMove}
+          onMouseLeave={menuMag.onMouseLeave}
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          whileTap={{ scale: 0.92 }}
+          className="pointer-events-auto p-3 rounded-full bg-ink text-paper mix-blend-difference hover:scale-105 active:scale-95 transition-transform duration-200 shadow-md flex items-center justify-center cursor-pointer select-none"
+        >
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
+        </motion.button>
+      </header>
+
+      {/* Navigation Modal Drawer */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 bg-ink/65 backdrop-blur-md flex justify-end"
+            onClick={() => setIsOpen(false)}
+          >
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              style={{ willChange: 'transform' }}
+              className="w-full max-w-2xl h-full bg-ink text-paper flex flex-col justify-between p-8 md:p-14 overflow-y-auto gpu-accelerated shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
             >
-              {name}
-            </a>
-          </li>
-        ))}
-      </ul>
+              {/* Drawer Top Header */}
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="flex justify-between items-center pb-8 border-b border-paper/15 text-xs font-mono tracking-widest text-paper-soft"
+              >
+                <span>ANIRUTH REDDY®</span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
+                  AVAILABLE FOR ROLES
+                </span>
+              </motion.div>
 
-      <div className="nav-right">
-        {/* Sound Toggle */}
-        <Magnetic>
-          <button
-            className="theme-toggle"
-            onClick={toggleSound}
-            aria-label="Toggle UI Sound Effects"
-            title={soundEnabled ? 'Mute UI Sounds' : 'Enable UI Sounds'}
-            onMouseEnter={() => soundFx.playHover()}
-          >
-            {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
-          </button>
-        </Magnetic>
+              {/* Navigation Links */}
+              <motion.nav 
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.05,
+                      delayChildren: 0.15,
+                    },
+                  },
+                }}
+                className="my-10 flex flex-col gap-3"
+              >
+                {navLinks.map((item) => (
+                  <motion.a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => { e.preventDefault(); handleLinkClick(item.href); }}
+                    variants={{
+                      hidden: { opacity: 0, x: 35 },
+                      visible: { 
+                        opacity: 1, 
+                        x: 0,
+                        transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+                      },
+                    }}
+                    whileHover={{ x: 8 }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                    className="group flex items-baseline gap-6 py-2 border-b border-paper/10 text-3xl md:text-5xl font-extrabold tracking-tight hover:text-paper-soft transition-colors cursor-pointer select-none font-display"
+                  >
+                    <span className="font-mono text-xs md:text-sm font-normal text-paper-soft group-hover:text-paper transition-colors">
+                      {item.num}
+                    </span>
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="ml-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 ease-out" size={28} />
+                  </motion.a>
+                ))}
+              </motion.nav>
 
-        {/* Theme Toggle */}
-        <Magnetic>
-          <button
-            className="theme-toggle"
-            onClick={() => {
-              soundFx.playClick();
-              toggleTheme();
-            }}
-            aria-label="Toggle theme"
-            onMouseEnter={() => soundFx.playHover()}
-          >
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-        </Magnetic>
+              {/* Drawer Footer Info */}
+              <motion.div 
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="pt-8 border-t border-paper/15 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 text-xs text-paper-soft"
+              >
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2 font-mono text-paper font-semibold">
+                    <Clock size={14} />
+                    <span>{timeStr || 'HYDERABAD / IST'}</span>
+                  </div>
+                  <p>Full-Stack Engineering &amp; UI Architecture</p>
+                </div>
 
-        {/* GitHub Link */}
-        <Magnetic>
-          <a
-            href={import.meta.env.VITE_GITHUB_URL || 'https://github.com/aniruthramidi'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-gh"
-            aria-label="GitHub"
-            onClick={() => soundFx.playClick()}
-            onMouseEnter={() => soundFx.playHover()}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-            </svg>
-          </a>
-        </Magnetic>
-
-        {/* Resume Button */}
-        <Magnetic>
-          <button
-            className="btn-resume"
-            onClick={() => {
-              soundFx.playClick();
-              if (onOpenResume) onOpenResume();
-            }}
-            onMouseEnter={() => soundFx.playHover()}
-          >
-            <FileText size={15} /> CV / Resume
-          </button>
-        </Magnetic>
-      </div>
-
-      {/* Hamburger */}
-      <button
-        className={`hamburger${menuOpen ? ' open' : ''}`}
-        onClick={() => {
-          soundFx.playClick();
-          setMenuOpen(!menuOpen);
-        }}
-        aria-label="Toggle menu"
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-
-      {/* Mobile menu */}
-      <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
-        {navLinks.map(({ name, href }) => (
-          <a key={name} href={href} onClick={(e) => handleNav(e, href)}>
-            {name}
-          </a>
-        ))}
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', alignItems: 'center' }}>
-          <button className="theme-toggle" onClick={toggleSound} aria-label="Toggle sound">
-            {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
-          </button>
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <button
-            className="btn-resume"
-            onClick={() => {
-              setMenuOpen(false);
-              if (onOpenResume) onOpenResume();
-            }}
-          >
-            <FileText size={14} /> Resume
-          </button>
-        </div>
-      </div>
-    </nav>
+                <div className="flex flex-col gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-paper/40">Direct Contact</span>
+                  <a href="mailto:aniruth.ramidi@gmail.com" className="text-paper hover:underline font-mono text-sm">
+                    aniruth.ramidi@gmail.com
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
-};
-
-export default Navbar;
+}

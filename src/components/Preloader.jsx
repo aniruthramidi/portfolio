@@ -1,87 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import './Preloader.css';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Preloader = ({ onComplete }) => {
-  const [progress, setProgress] = useState(0);
+export default function Preloader({ onComplete }) {
+  const [count, setCount] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    const duration = 1800; // 1.8 seconds preloader
-    const intervalTime = 20;
-    const steps = duration / intervalTime;
-    let step = 0;
+    const duration = 1400; // ms
+    let startTime = null;
+    let rafId;
 
-    const timer = setInterval(() => {
-      step++;
-      const currentProgress = Math.min(Math.floor((step / steps) * 100), 100);
-      setProgress(currentProgress);
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Butter-smooth cubic progression curve
+      const easedProgress = Math.min(1, 1 - Math.pow(1 - progress, 3));
+      const currentCount = Math.floor(easedProgress * 100);
 
-      if (step >= steps) {
-        clearInterval(timer);
+      setCount(currentCount);
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        setCount(100);
         setTimeout(() => {
-          onComplete();
-        }, 200); // Smooth exit delay
+          setIsFinished(true);
+          if (onComplete) onComplete();
+        }, 200);
       }
-    }, intervalTime);
+    };
 
-    return () => clearInterval(timer);
+    rafId = requestAnimationFrame(step);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [onComplete]);
 
   return (
-    <motion.div
-      className="preloader-overlay"
-      exit={{
-        opacity: 0,
-        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }
-      }}
-    >
-      {/* Sliding curtain panels */}
-      <motion.div
-        className="preloader-panel-top"
-        exit={{ y: '-100%' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      />
-      <motion.div
-        className="preloader-panel-bottom"
-        exit={{ y: '100%' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      />
-
-      <motion.div
-        className="preloader-content"
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      >
+    <AnimatePresence>
+      {!isFinished && (
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="preloader-logo"
+          initial={{ opacity: 1, y: 0 }}
+          exit={{ 
+            y: '-100%', 
+            transition: { 
+              duration: 0.85, 
+              ease: [0.76, 0, 0.24, 1] 
+            } 
+          }}
+          style={{ willChange: 'transform' }}
+          className="fixed inset-0 z-[100] bg-paper text-ink flex flex-col justify-between p-6 md:p-12 font-sans select-none gpu-accelerated"
         >
-          AR<span className="logo-dot">.</span>
-        </motion.div>
+          {/* Top Line */}
+          <div className="flex justify-between items-center text-xs font-bold tracking-wider text-ink-soft">
+            <span>ANIRUTH REDDY®</span>
+            <span>2024 — 2026</span>
+          </div>
 
-        <div className="preloader-progress-wrap">
-          <div className="preloader-progress-bar">
+          {/* Center Expanding Line */}
+          <div className="relative w-full h-[1px] bg-ink/15 my-auto overflow-hidden">
             <motion.div
-              className="preloader-progress-fill"
-              style={{ width: `${progress}%` }}
+              className="absolute left-0 top-0 bottom-0 bg-ink will-change-transform"
+              style={{ width: `${count}%` }}
+              transition={{ ease: [0.16, 1, 0.3, 1] }}
             />
           </div>
-          <span className="preloader-percentage">{progress}%</span>
-        </div>
 
-        <motion.div
-          className="preloader-subtext"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          Loading digital experience...
+          {/* Bottom Counter */}
+          <div className="flex justify-between items-end">
+            <div className="text-sm font-medium text-ink-soft">
+              <span>FULL-STACK &amp; UI SYSTEMS ARCHITECTURE</span>
+            </div>
+            <div className="font-mono text-3xl md:text-5xl font-bold tracking-tighter tabular-nums">
+              {String(count).padStart(3, '0')}
+            </div>
+          </div>
         </motion.div>
-      </motion.div>
-    </motion.div>
+      )}
+    </AnimatePresence>
   );
-};
-
-export default Preloader;
+}
