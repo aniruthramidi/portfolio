@@ -43,7 +43,7 @@ export default function Hero() {
   const letters = ['A', 'N', 'I', 'R', 'U', 'T', 'H'];
 
   return (
-    <section id="top" aria-label="Hero Overview" className="relative min-h-screen bg-paper text-ink flex flex-col justify-between pt-24 pb-12 px-6 md:px-12 grid-lines overflow-hidden">
+    <section id="top" aria-label="Hero Overview" className="relative min-h-screen bg-paper text-ink flex flex-col justify-between pt-28 md:pt-32 pb-12 px-6 md:px-12 grid-lines overflow-hidden">
       {/* Top Banner Tagline */}
       <div className="flex justify-between items-start pt-4 border-t border-ink/20 text-xs font-semibold tracking-wider text-ink-soft uppercase font-mono">
         <span>FULL-STACK DEVELOPER &amp; UI ARCHITECT</span>

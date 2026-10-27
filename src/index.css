@@ -87,7 +87,7 @@ body {
 
 /* Giant typography matching editorial brutalist style */
 .hero-wordmark {
-  font-size: clamp(3.8rem, 16vw, 20rem);
+  font-size: clamp(2.8rem, 12.2vw, 15rem);
   font-weight: 800;
   line-height: 0.88;
   letter-spacing: -0.04em;
