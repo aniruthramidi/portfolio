@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import Preloader from './components/Preloader';
 import SkipToContent from './components/SkipToContent';
@@ -12,10 +12,24 @@ import Vision from './components/Vision';
 import Ideas from './components/Ideas';
 import Contact from './components/Contact';
 import BackToTop from './components/BackToTop';
+import { AdminPanel } from './components/AdminPanel';
 import './index.css';
 
 export default function App() {
+  const [isAdminView, setIsAdminView] = useState(() => window.location.hash === '#admin');
+
+  // Monitor url hash changes for #admin panel access
   useEffect(() => {
+    const handleHash = () => {
+      setIsAdminView(window.location.hash === '#admin');
+    };
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
+
+  useEffect(() => {
+    if (isAdminView) return;
+
     // Initialize Lenis with calibrated butter-smooth inertia physics
     const lenis = new Lenis({
       duration: 1.15,
@@ -44,7 +58,11 @@ export default function App() {
       lenis.destroy();
       delete window.__lenis;
     };
-  }, []);
+  }, [isAdminView]);
+
+  if (isAdminView) {
+    return <AdminPanel />;
+  }
 
   return (
     <div className="relative bg-paper text-ink selection:bg-ink selection:text-paper font-sans">

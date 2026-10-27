@@ -5,41 +5,81 @@
    ========================================================================== */
 
 :root {
-  --paper: #ebebeb;
-  --paper-soft: #a3a3a3;
-  --paper-muted: #d5d5d5;
-  --ink: #0a0a0a;
-  --ink-soft: #555555;
-  --ink-muted: #222222;
-  --border-ink: rgba(10, 10, 10, 0.15);
-  --border-paper: rgba(235, 235, 235, 0.2);
-  
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Syne', 'Inter', sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --bg: #000000;
+  --bg-s: #121212;
+  --bg-e: #181818;
+  --surface: #181818;
+  --surface-h: #282828;
+  --glass: #121212;
 
-  /* Butter-smooth cinematic motion easing curves */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --fg: #EDEDEF;
+  --fg-m: #A7A7A7;
+  --fg-d: rgba(237 237 239 / 0.3);
+
+  --accent: #1DB954;
+  --accent-l: #1ED760;
+  --accent-glow: rgba(29, 185, 84, 0.22);
+  --accent-bg: rgba(29, 185, 84, 0.1);
+
+  --bdr: #282828;
+  --bdr-h: #3E3E3E;
+  --bdr-a: rgba(29, 185, 84, 0.3);
+
+  --grad: linear-gradient(135deg, #1DB954, #1ED760, #7eff9a);
+  --grad-t: linear-gradient(135deg, #1ED760 0%, #7eff9a 55%, #c2ffd0 100%);
+  --grad-sub: linear-gradient(180deg, rgba(29, 185, 84, 0.15) 0%, transparent 100%);
+
+  --sh-s: 0 4px 16px rgba(0 0 0 / 0.4);
+  --sh-m: 0 12px 40px rgba(0 0 0 / 0.55);
+  --sh-l: 0 24px 64px rgba(0 0 0 / 0.65);
+  --sh-a: 0 8px 32px rgba(29, 185, 84, 0.28);
+
+  --r: 16px;
+  --r-s: 10px;
+  --r-xs: 6px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast: 180ms;
+  --t: 340ms;
+  --t-slow: 540ms;
+
+  --fh: 'Archivo', system-ui, sans-serif;
+  --fb: 'Space Grotesk', system-ui, sans-serif;
+  --nav-h: 68px;
+  --bg-nav: rgba(0, 0, 0, 0.75);
+  --bg-mobile: rgba(0, 0, 0, 0.97);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ── Light Theme ── */
+[data-theme="light"] {
+  --bg: #f8f9fa;
+  --bg-s: #ffffff;
+  --bg-e: #ffffff;
+  --surface: #f1f3f5;
+  --surface-h: #e9ecef;
+  --glass: rgba(255 255 255 / 0.9);
 
-html {
-  font-family: var(--font-sans);
-  background-color: var(--paper);
-  color: var(--ink);
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  --fg: #121212;
+  --fg-m: #535353;
+  --fg-d: rgba(18 18 18 / 0.3);
+
+  --accent: #1DB954;
+  --accent-l: #1ED760;
+  --accent-glow: rgba(29, 185, 84, 0.15);
+  --accent-bg: rgba(29, 185, 84, 0.08);
+
+  --bdr: #e9ecef;
+  --bdr-h: #dee2e6;
+  --bdr-a: rgba(29, 185, 84, 0.25);
+
+  --grad-t: linear-gradient(135deg, #1DB954 0%, #1ED760 50%, #a1ffb2 100%);
+  --bg-nav: rgba(248, 249, 250, 0.8);
+  --bg-mobile: rgba(248, 249, 250, 0.97);
+
+  --sh-s: 0 4px 16px rgba(0 0 0 / 0.06);
+  --sh-m: 0 12px 40px rgba(0 0 0 / 0.08);
+  --sh-l: 0 24px 64px rgba(0 0 0 / 0.1);
 }
 
 body {
@@ -75,15 +115,37 @@ body {
   font-family: var(--font-mono);
 }
 
-.bg-paper { background-color: var(--paper); }
-.bg-ink { background-color: var(--ink); }
-.text-paper { color: var(--paper); }
-.text-ink { color: var(--ink); }
-.text-ink-soft { color: var(--ink-soft); }
-.text-paper-soft { color: var(--paper-soft); }
+.bg-paper {
+  background-color: var(--paper);
+}
 
-.border-ink-subtle { border-color: var(--border-ink); }
-.border-paper-subtle { border-color: var(--border-paper); }
+.bg-ink {
+  background-color: var(--ink);
+}
+
+.text-paper {
+  color: var(--paper);
+}
+
+.text-ink {
+  color: var(--ink);
+}
+
+.text-ink-soft {
+  color: var(--ink-soft);
+}
+
+.text-paper-soft {
+  color: var(--paper-soft);
+}
+
+.border-ink-subtle {
+  border-color: var(--border-ink);
+}
+
+.border-paper-subtle {
+  border-color: var(--border-paper);
+}
 
 /* Giant typography matching editorial brutalist style */
 .hero-wordmark {
@@ -118,13 +180,16 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--paper);
 }
+
 ::-webkit-scrollbar-thumb {
   background: #aaa;
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #666;
 }
@@ -132,22 +197,27 @@ body {
 /* Micro grid lines */
 .grid-lines {
   background-size: 80px 80px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(10, 10, 10, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(10, 10, 10, 0.04) 1px, transparent 1px);
 }
 
 .grid-lines-dark {
   background-size: 80px 80px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
 /* Horizontal Infinite Marquee with GPU 3D translation & buttery performance */
 @keyframes marquee {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 .animate-marquee {
@@ -165,8 +235,17 @@ body {
 
 /* Pulse dot */
 @keyframes pulse-slow {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
 }
 
 .animate-pulse-dot {
@@ -204,7 +283,10 @@ body {
 
 /* Reduced motion accessibility graceful transition */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
