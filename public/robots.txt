@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aniruth.dev/sitemap.xml
