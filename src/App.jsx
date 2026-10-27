@@ -1,85 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import React, { useEffect } from 'react';
+import Lenis from 'lenis';
+import Preloader from './components/Preloader';
+import SkipToContent from './components/SkipToContent';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import About from './components/About';
-import Terminal from './components/Terminal';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
+import Studio from './components/Studio';
+import Work from './components/Work';
+import Services from './components/Services';
+import Meaning from './components/Meaning';
+import Vision from './components/Vision';
+import Ideas from './components/Ideas';
 import Contact from './components/Contact';
-import Cursor from './components/Cursor';
-import Preloader from './components/Preloader';
-import Toast from './components/Toast';
-import ResumeModal from './components/ResumeModal';
+import BackToTop from './components/BackToTop';
 import './index.css';
 
-function App() {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('portfolio-theme') || 'dark';
-  });
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: '', type: 'success' });
-  const [resumeOpen, setResumeOpen] = useState(false);
-
-  // Set initial theme
+export default function App() {
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio-theme', theme);
-  }, [theme]);
+    // Initialize Lenis with calibrated butter-smooth inertia physics
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
+      infinite: false,
+    });
 
-  // Lock scroll while preloader is active
-  useEffect(() => {
-    if (loading) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    // Expose lenis instance globally for smooth programmatic navigation
+    window.__lenis = lenis;
+
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     }
-  }, [loading]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+    rafId = requestAnimationFrame(raf);
 
-  const showToast = (message, type = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => {
-      setToast({ message: '', type: 'success' });
-    }, 3200);
-  };
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete window.__lenis;
+    };
+  }, []);
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {loading && <Preloader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
+    <div className="relative bg-paper text-ink selection:bg-ink selection:text-paper font-sans">
+      {/* Accessibility Skip Link */}
+      <SkipToContent />
 
-      <Cursor />
+      {/* Interactive Kinetic Preloader Screen */}
+      <Preloader />
 
-      <Navbar
-        theme={theme}
-        toggleTheme={toggleTheme}
-        onOpenResume={() => setResumeOpen(true)}
-        showToast={showToast}
-      />
+      {/* Fixed Navbar & Menu Drawer */}
+      <Navbar />
 
-      <main>
-        <Hero theme={theme} showToast={showToast} />
-        <Marquee />
-        <About />
-        <Terminal onToggleTheme={toggleTheme} showToast={showToast} />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact showToast={showToast} />
+      {/* Main Page Sections */}
+      <main id="main-content" tabIndex={-1} className="relative z-10 outline-none">
+        <Hero />
+        <Studio />
+        <Work />
+        <Services />
+        <Meaning />
+        <Vision />
+        <Ideas />
+        <Contact />
       </main>
 
-      {/* Modals & Toasts */}
-      <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: '', type: 'success' })} />
-      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
-    </>
+      {/* Butter-Smooth Scroll To Top */}
+      <BackToTop />
+    </div>
   );
 }
-
-export default App;
